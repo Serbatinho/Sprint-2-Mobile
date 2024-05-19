@@ -59,6 +59,9 @@ const Login = ({ navigation }) => {
             <TouchableOpacity onPress={() => navigation.navigate('Cadastro')}>
                 <Text style={styles.link}>Não tem uma conta? Cadastre-se</Text>
             </TouchableOpacity>
+            <TouchableOpacity onPress={() => navigation.navigate('PasswordReset')}>
+                <Text style={styles.link}>Esqueceu a sua senha?</Text>
+            </TouchableOpacity>
         </View>
     );
 };

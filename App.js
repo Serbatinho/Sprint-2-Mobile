@@ -1,12 +1,12 @@
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-// import * as Linking from 'expo-linking';
 import Firebase from './src/Config';
 
 import Login from './screens/Login';
 import Home from './screens/Home';
 import Cadastro from './screens/Cadastro';
 import { AuthProvider } from './src/context/AuthContext';
+import PasswordReset from './screens/PasswordReset';
 
 const Stack = createStackNavigator();
 
@@ -16,6 +16,7 @@ function MyStack() {
       <Stack.Screen name="Home" component={Home} />
       <Stack.Screen name="Login" component={Login} />
       <Stack.Screen name="Cadastro" component={Cadastro} />
+      <Stack.Screen name="PasswordReset" component={PasswordReset} />
     </Stack.Navigator>
   );
 }
@@ -39,15 +40,3 @@ export default function App() {
     </AuthProvider>
   );
 }
-
-
-// const linking = {
-//   prefixes: [Linking.createURL('/')],
-//   config: {
-//     screens: {
-//       Home: '',
-//     },
-//   },
-// };
-
-// <NavigationContainer linking={linking}>

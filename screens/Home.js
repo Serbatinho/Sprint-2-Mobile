@@ -1,10 +1,12 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { StyleSheet, View, Button, Modal, Text } from 'react-native';
+import { StyleSheet, View, Modal, Text, TouchableOpacity } from 'react-native';
 import { useFocusEffect } from '@react-navigation/native';
-import { useAuth } from '../src/context/AuthContext'; // Importe o contexto de autenticação
+import { useAuth } from '../src/context/AuthContext';
+
+import globalStyles from '../styles/base/globalStyles';
 
 const Home = ({ navigation }) => {
-    const { user, handleSignOut } = useAuth(); // Obtenha o usuário e a função handleSignOut do contexto de autenticação
+    const { user, handleSignOut } = useAuth();
     const [modalVisible, setModalVisible] = useState(true);
 
     useFocusEffect(
@@ -25,35 +27,47 @@ const Home = ({ navigation }) => {
                 }}
             >
                 <View style={styles.modalView}>
-                    <Text style={styles.modalText}>Bem-vindo, {user?.email}!</Text>
-                    <Button
-                        title="Começar"
+                    <Text style={styles.modalText}>
+                        {user ? `Bem-vindo, ${user.email}!` : 'Olá!'}
+                    </Text>
+                    <TouchableOpacity
+                        style={globalStyles.stdButton}
                         onPress={() => {
                             setModalVisible(false);
                         }}
-                    />
+                    >
+                        <Text style={globalStyles.stdButtonText}>Começar</Text>
+                    </TouchableOpacity>
                 </View>
             </Modal>
 
-            <Text style={styles.welcome}>Bem-vindo, {user?.email}!</Text>
+            {user?.email && (
+                <Text style={styles.modalText}>Bem-vindo, {user.email}!</Text>
+            )}
 
             {user && (
-                <Button
-                    title="Sair"
-                    onPress={handleSignOut} // Chame a função handleSignOut do contexto de autenticação
-                />
+                <TouchableOpacity
+                    style={globalStyles.stdButton}
+                    onPress={handleSignOut}
+                >
+                    <Text style={globalStyles.stdButtonText}>Sair</Text>
+                </TouchableOpacity>
             )}
 
             {!user && (
                 <View style={styles.buttonContainer}>
-                    <Button
-                        title="Login"
+                    <TouchableOpacity
+                        style={globalStyles.stdButton}
                         onPress={() => navigation.navigate('Login')}
-                    />
-                    <Button
-                        title="Cadastro"
+                    >
+                        <Text style={globalStyles.stdButtonText}>Login</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity
+                        style={globalStyles.stdButton}
                         onPress={() => navigation.navigate('Cadastro')}
-                    />
+                    >
+                        <Text style={globalStyles.stdButtonText}>Cadastro</Text>
+                    </TouchableOpacity>
                 </View>
             )}
         </View>
