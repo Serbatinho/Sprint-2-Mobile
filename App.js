@@ -6,6 +6,7 @@ import Firebase from './src/Config';
 import Login from './screens/Login';
 import Home from './screens/Home';
 import Cadastro from './screens/Cadastro';
+import { AuthProvider } from './src/context/AuthContext';
 
 const Stack = createStackNavigator();
 
@@ -31,8 +32,22 @@ function MyStack() {
 export default function App() {
   return (
     // <NavigationContainer linking={linking}>
-    <NavigationContainer>
-      <MyStack />
-    </NavigationContainer>
+    <AuthProvider>
+      <NavigationContainer>
+        <MyStack />
+      </NavigationContainer>
+    </AuthProvider>
   );
 }
+
+
+// const linking = {
+//   prefixes: [Linking.createURL('/')],
+//   config: {
+//     screens: {
+//       Home: '',
+//     },
+//   },
+// };
+
+// <NavigationContainer linking={linking}>

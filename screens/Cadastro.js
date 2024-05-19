@@ -1,18 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { StyleSheet, View, Text, TextInput, Button, Alert } from 'react-native';
-import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
-import { db } from '../src/Config';
 
-import { collection, getDocs, getFirestore } from "firebase/firestore";
-
-
-
-
-
-// const db = Firebase.firestore();
-const auth = getAuth();
+import { db, auth } from '../src/Config';
+import { createUserWithEmailAndPassword } from 'firebase/auth';
+import { collection, getDocs } from "firebase/firestore";
 
 const Cadastro = ({ navigation }) => {
+    // Aquisição dos usuários
     const [dados, setDados] = useState([]);
 
     useEffect(() => {
@@ -28,9 +22,7 @@ const Cadastro = ({ navigation }) => {
                 console.error("Erro ao buscar dados:", error);
             }
         };
-
         fetchData();
-
     }, []);
 
     useEffect(() => {
@@ -38,47 +30,42 @@ const Cadastro = ({ navigation }) => {
         console.log(dados);
     }, [dados]);
 
-
-    // useEffect(async () => {
-
-    //     const querySnapshot = await getDocs(collection(db, "teste"));
-    //     querySnapshot.forEach((doc) => {
-    //         console.log(`${doc.id} => ${doc.data()}`);
-    //     });
-    // });
-
-
-
-
+    // Cadastro
     const [email, setEmail] = useState('');
-    const [senha, setSenha] = useState('');
+    const [password, setPassword] = useState('');
+    const [successMessage, setSuccessMessage] = useState('');
+    const [errorMessage, setErrorMessage] = useState('');
 
     const handleSignUp = () => {
-        createUserWithEmailAndPassword(auth, email, senha)
-            .then(userCredential => {
-                Alert.alert('Usuário criado com sucesso!');
-                navigation.navigate('Login');
+        if (password.length < 6) {
+            setErrorMessage("A senha deve ter pelo menos 6 caracteres.");
+            setTimeout(() => {
+                setErrorMessage('');
+            }, 3000);
+            return;
+        }
+
+        createUserWithEmailAndPassword(auth, email, password)
+            .then((userCredential) => {
+                console.log(userCredential.user);
+                setSuccessMessage("Usuário criado com sucesso!");
+                setTimeout(() => {
+                    setSuccessMessage('');
+                    navigation.navigate('Login');
+                }, 3000);
             })
-            .catch(error => {
-                console.log("Usuario não criado")
+            .catch((error) => {
+                console.log("Usuário não criado");
                 Alert.alert(error.message);
             });
     };
 
     return (
-
-
         <View style={styles.container}>
-
-
-
             {dados.length > 0 ? (
                 dados.map((item, index) => (
-                    <Text key={index}
-
-                        style={styles.title}
-                    >
-                        {item.Nome}
+                    <Text key={index} style={styles.title}>
+                        {item.nome}
                     </Text>
                 ))
             ) : (
@@ -86,6 +73,15 @@ const Cadastro = ({ navigation }) => {
             )}
 
             <Text style={styles.title}>Cadastro</Text>
+
+            {successMessage ? (
+                <Text style={styles.successMessage}>{successMessage}</Text>
+            ) : null}
+
+            {errorMessage ? (
+                <Text style={styles.errorMessage}>{errorMessage}</Text>
+            ) : null}
+
             <TextInput
                 style={styles.input}
                 placeholder="Email"
@@ -97,8 +93,8 @@ const Cadastro = ({ navigation }) => {
                 style={styles.input}
                 placeholder="Senha"
                 secureTextEntry
-                value={senha}
-                onChangeText={setSenha}
+                value={password}
+                onChangeText={setPassword}
             />
             <Button title="Cadastrar" onPress={handleSignUp} />
         </View>
@@ -125,5 +121,15 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         marginBottom: 10,
         paddingLeft: 10,
+    },
+    successMessage: {
+        fontSize: 18,
+        color: 'green',
+        marginBottom: 10,
+    },
+    errorMessage: {
+        fontSize: 18,
+        color: 'red',
+        marginBottom: 10,
     },
 });

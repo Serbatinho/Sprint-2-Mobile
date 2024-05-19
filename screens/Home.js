@@ -1,20 +1,16 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { StyleSheet, View, Button, Modal, Text } from 'react-native';
 import { useFocusEffect } from '@react-navigation/native';
-
+import { useAuth } from '../src/context/AuthContext'; // Importe o contexto de autenticação
 
 const Home = ({ navigation }) => {
-
-
+    const { user, handleSignOut } = useAuth(); // Obtenha o usuário e a função handleSignOut do contexto de autenticação
     const [modalVisible, setModalVisible] = useState(true);
 
     useFocusEffect(
-        React.useCallback(() => {
-            // Show modal every time the screen is focused
+        useCallback(() => {
             setModalVisible(true);
-            return () => {
-                // Cleanup if needed when the screen is unfocused
-            };
+            return () => { };
         }, [])
     );
 
@@ -29,26 +25,37 @@ const Home = ({ navigation }) => {
                 }}
             >
                 <View style={styles.modalView}>
-                    <Text style={styles.modalText}>Bem-vindo!</Text>
+                    <Text style={styles.modalText}>Bem-vindo, {user?.email}!</Text>
                     <Button
                         title="Começar"
                         onPress={() => {
                             setModalVisible(false);
-
                         }}
                     />
                 </View>
             </Modal>
 
-            <Button
-                title="Começar"
-                onPress={() => {
+            <Text style={styles.welcome}>Bem-vindo, {user?.email}!</Text>
 
-                    navigation.navigate('Login');
-                }}
-            />
+            {user && (
+                <Button
+                    title="Sair"
+                    onPress={handleSignOut} // Chame a função handleSignOut do contexto de autenticação
+                />
+            )}
 
-
+            {!user && (
+                <View style={styles.buttonContainer}>
+                    <Button
+                        title="Login"
+                        onPress={() => navigation.navigate('Login')}
+                    />
+                    <Button
+                        title="Cadastro"
+                        onPress={() => navigation.navigate('Cadastro')}
+                    />
+                </View>
+            )}
         </View>
     );
 };
@@ -81,5 +88,12 @@ const styles = StyleSheet.create({
         marginBottom: 15,
         textAlign: 'center',
         fontSize: 18,
+    },
+    welcome: {
+        fontSize: 24,
+        marginBottom: 20,
+    },
+    buttonContainer: {
+        marginTop: 20,
     },
 });
