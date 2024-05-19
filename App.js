@@ -1,20 +1,38 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
+// import * as Linking from 'expo-linking';
+import Firebase from './src/Config';
 
-export default function App() {
+import Login from './screens/Login';
+import Home from './screens/Home';
+import Cadastro from './screens/Cadastro';
+
+const Stack = createStackNavigator();
+
+function MyStack() {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <Stack.Navigator>
+      <Stack.Screen name="Home" component={Home} />
+      <Stack.Screen name="Login" component={Login} />
+      <Stack.Screen name="Cadastro" component={Cadastro} />
+    </Stack.Navigator>
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+// const linking = {
+//   prefixes: [Linking.createURL('/')],
+//   config: {
+//     screens: {
+//       Home: '',
+//     },
+//   },
+// };
+
+export default function App() {
+  return (
+    // <NavigationContainer linking={linking}>
+    <NavigationContainer>
+      <MyStack />
+    </NavigationContainer>
+  );
+}
