@@ -58,6 +58,21 @@ const globalStyles = StyleSheet.create({
         elevation: 5,
     },
 
+    stdInputSearch: {
+        marginBottom: 36,
+        width: width * 0.77,
+        backgroundColor: 'white',
+        borderRadius: 10,
+        padding: 9,
+        alignItems: 'center',
+        justifyContent: 'center',
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.25,
+        shadowRadius: 4,
+        elevation: 5,
+    },
+
     stdInputMarker: {
         fontWeight: 'bold',
         textAlign: 'left',
@@ -219,13 +234,39 @@ const globalStyles = StyleSheet.create({
         fontSize: 16,
         fontWeight: 'bold',
         color: '#317BEF',
+        marginBottom: 5,
+    },
+
+    cardTitleWhite: {
+        fontSize: 16,
+        fontWeight: 'bold',
+        color: '#fff',
+        marginBottom: 5,
     },
 
     cardDescription: {
-        fontSize: 14,
+        fontSize: 12,
         color: '#333333',
     },
 
+    userDetailName: {
+        fontSize: 20,
+        fontWeight: 'bold',
+        color: '#000',
+        marginBottom: 5,
+    },
+
+    userDetailUser: {
+        fontSize: 16,
+        color: '#566470',
+        marginBottom: 30,
+    },
+
+    userDetailData: {
+        fontSize: 16,
+        color: '#566470',
+        marginBottom: 15,
+    },
 });
 
 export default globalStyles;

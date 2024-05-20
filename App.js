@@ -8,6 +8,8 @@ import Cadastro from './screens/Cadastro';
 import { AuthProvider } from './src/context/AuthContext';
 import PasswordReset from './screens/PasswordReset';
 import UserPanel from './screens/UserPanel';
+import SearchScreen from './screens/SearchScreen';
+import UserDetailsScreen from './screens/UserDetailsScreen';
 
 const Stack = createStackNavigator();
 
@@ -35,6 +37,8 @@ function MyStack() {
       <Stack.Screen name="Cadastro" component={Cadastro} />
       <Stack.Screen name="PasswordReset" component={PasswordReset} />
       <Stack.Screen name="UserPanel" component={UserPanel} />
+      <Stack.Screen name="SearchScreen" component={SearchScreen} />
+      <Stack.Screen name="UserDetailsScreen" component={UserDetailsScreen} />
     </Stack.Navigator>
   );
 }

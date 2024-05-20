@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { StyleSheet, View, Text, TextInput, Button, Alert } from 'react-native';
+import { View, Text, TextInput, Button, Alert } from 'react-native';
 import { auth } from '../src/Config';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
 import globalStyles from '../styles/base/globalStyles';
@@ -98,34 +98,3 @@ const Cadastro = ({ navigation }) => {
 };
 
 export default Cadastro;
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-        backgroundColor: '#fff',
-    },
-    title: {
-        fontSize: 24,
-        marginBottom: 20,
-    },
-    input: {
-        width: 200,
-        height: 40,
-        borderColor: 'gray',
-        borderWidth: 1,
-        marginBottom: 10,
-        paddingLeft: 10,
-    },
-    successMessage: {
-        fontSize: 18,
-        color: 'green',
-        marginBottom: 10,
-    },
-    errorMessage: {
-        fontSize: 18,
-        color: 'red',
-        marginBottom: 10,
-    },
-});

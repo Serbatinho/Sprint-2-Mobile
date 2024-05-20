@@ -13,13 +13,17 @@ const UserPanel = () => {
         navigation.navigate('Home');
     };
 
+    const handleNavigateToSearch = () => {
+        navigation.navigate('SearchScreen');
+    };
+
     return (
         <View style={globalStyles.stdFullView}>
             <View style={globalStyles.welcomeContainer}>
                 <View style={globalStyles.avatarPlaceholder}>
                 </View>
                 <Text
-                    style={globalStyles.linkBold}
+                    style={globalStyles.cardTitleWhite}
                     numberOfLines={1}
                     ellipsizeMode="tail"
                 >
@@ -30,28 +34,33 @@ const UserPanel = () => {
             <View style={globalStyles.stdViewContent}>
                 <ScrollView style={globalStyles.scrollViewContainer}>
 
-                    <View style={globalStyles.cardContainer}>
-                        <View style={globalStyles.iconCircle}>
+                    {/* Primeiro card com onPress handler */}
+                    <TouchableOpacity onPress={handleNavigateToSearch}>
+                        <View style={globalStyles.cardContainer}>
+                            <View style={globalStyles.iconCircle}>
+                            </View>
+                            <View style={globalStyles.cardTextContainer}>
+                                <Text style={globalStyles.cardTitle}>
+                                    Descubra Opiniões
+                                </Text>
+                                <Text style={globalStyles.cardDescription}>
+                                    Analise a opinião dos usuários sobre qualquer pessoa do Twitter! Utilizando inteligência artificial, oferecemos resumos precisos baseados nos últimos 30 dias de atividade do usuário pesquisado.
+                                </Text>
+                            </View>
                         </View>
-                        <View style={globalStyles.cardTextContainer}>
-                            <Text style={globalStyles.cardTitle}>
-                                Descubra Opiniões
-                            </Text>
-                            <Text style={globalStyles.cardDescription}>
-                                Analise a opinião dos usuários sobre qualquer pessoa do Twitter! Utilizando inteligência artificial, oferecemos resumos precisos baseados nos últimos 30 dias de atividade do usuário pesquisado.
-                            </Text>
-                        </View>
-                    </View>
+                    </TouchableOpacity>
 
+                    {/* Outros cards */}
                     <View style={globalStyles.cardContainer}>
                         <View style={globalStyles.iconCircle}>
                         </View>
                         <View style={globalStyles.cardTextContainer}>
                             <Text style={globalStyles.cardTitle}>
-                                Explorar Tendências
+                                Análise em Tempo Real
                             </Text>
                             <Text style={globalStyles.cardDescription}>
-                                Veja as últimas tendências e tópicos em alta nas redes sociais, com análises detalhadas e insights sobre o que está dominando as conversas online.
+                                Obtenha insights em tempo real!
+                                Nosso algoritmo analisa milhares de tweets para fornecer uma visão instantânea dos sentimentos e opiniões do Twitter sobre qualquer usuário.
                             </Text>
                         </View>
                     </View>
