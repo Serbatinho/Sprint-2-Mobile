@@ -7,6 +7,7 @@ import Home from './screens/Home';
 import Cadastro from './screens/Cadastro';
 import { AuthProvider } from './src/context/AuthContext';
 import PasswordReset from './screens/PasswordReset';
+import UserPanel from './screens/UserPanel';
 
 const Stack = createStackNavigator();
 
@@ -14,41 +15,32 @@ function MyStack() {
   return (
     <Stack.Navigator
       screenOptions={{
-        headerTitle: '', // Remove o texto do título da página
+        headerTitle: '',
         cardStyle: {
           backgroundColor: '#317BEF',
-          borderWidth: 0,  // Remove a borda
+          borderWidth: 0,
         },
         headerStyle: {
           backgroundColor: '#317BEF',
-          borderBottomWidth: 0, // Remove a borda inferior do cabeçalho
+          borderBottomWidth: 0,
         },
-        headerTintColor: '#fff', // Define a cor dos ícones
-        cardShadowEnabled: false, // Desativa sombras das cartas (telas)
-        elevation: 0, // Remove elevação no Android
-        shadowOpacity: 0, // Remove sombra no iOS
+        headerTintColor: '#fff',
+        cardShadowEnabled: false,
+        elevation: 0,
+        shadowOpacity: 0,
       }}
     >
       <Stack.Screen name="Home" component={Home} />
       <Stack.Screen name="Login" component={Login} />
       <Stack.Screen name="Cadastro" component={Cadastro} />
       <Stack.Screen name="PasswordReset" component={PasswordReset} />
+      <Stack.Screen name="UserPanel" component={UserPanel} />
     </Stack.Navigator>
   );
 }
 
-// const linking = {
-//   prefixes: [Linking.createURL('/')],
-//   config: {
-//     screens: {
-//       Home: '',
-//     },
-//   },
-// };
-
 export default function App() {
   return (
-    // <NavigationContainer linking={linking}>
     <AuthProvider>
       <NavigationContainer>
         <MyStack />
@@ -56,3 +48,55 @@ export default function App() {
     </AuthProvider>
   );
 }
+
+
+// import React from 'react';
+// import { NavigationContainer } from '@react-navigation/native';
+// import { createStackNavigator } from '@react-navigation/stack';
+// import { AuthProvider } from './src/context/AuthContext';
+// import Login from './screens/Login';
+// import Home from './screens/Home';
+// import Cadastro from './screens/Cadastro';
+// import PasswordReset from './screens/PasswordReset';
+// import UserPanel from './screens/UserPanel';
+// import ProtectedRoutes from './src/components/ProtectedRoutes';
+
+// const Stack = createStackNavigator();
+
+// function MyStack() {
+//   return (
+//     <Stack.Navigator
+//       screenOptions={{
+//         headerTitle: '',
+//         cardStyle: {
+//           backgroundColor: '#317BEF',
+//           borderWidth: 0,
+//         },
+//         headerStyle: {
+//           backgroundColor: '#317BEF',
+//           borderBottomWidth: 0,
+//         },
+//         headerTintColor: '#fff',
+//         cardShadowEnabled: false,
+//         elevation: 0,
+//         shadowOpacity: 0,
+//       }}
+//     >
+//       <Stack.Screen name="Home" component={Home} />
+//       <Stack.Screen name="Login" component={Login} />
+//       <Stack.Screen name="Cadastro" component={Cadastro} />
+//       <Stack.Screen name="PasswordReset" component={PasswordReset} />
+//       <Stack.Screen name="UserPanel" component={ProtectedRoutes} />
+//     </Stack.Navigator>
+//   );
+// }
+
+// export default function App() {
+//   return (
+//     <AuthProvider>
+//       <NavigationContainer>
+//         <MyStack />
+//       </NavigationContainer>
+//     </AuthProvider>
+//   );
+// }

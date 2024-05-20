@@ -2,8 +2,6 @@ import { StyleSheet, Dimensions } from 'react-native';
 
 const { width, height } = Dimensions.get('window');
 
-const buttonWidth = width * 0.6;
-const modalWidth = width * 0.8;
 
 const globalStyles = StyleSheet.create({
     container: {
@@ -21,12 +19,15 @@ const globalStyles = StyleSheet.create({
     stdButtonText: {
         fontSize: 16,
         fontWeight: 'bold',
-        color: '#fff'
+        color: '#fff',
+        textAlign: 'center',
+        flexWrap: 'nowrap',
+        Width: width * 0.9,
     },
 
     stdButton: {
         paddingVertical: 11,
-        paddingHorizontal: 150,
+        paddingHorizontal: 15,
         marginVertical: 16,
         color: '#333',
         borderWidth: 2.5,
@@ -39,7 +40,7 @@ const globalStyles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         position: 'relative',
-        width: buttonWidth,
+        width: width * 0.8,
     },
 
     stdInput: {
@@ -90,7 +91,7 @@ const globalStyles = StyleSheet.create({
         shadowOpacity: 0.25,
         shadowRadius: 4,
         elevation: 5,
-        width: modalWidth,
+        width: width * 0.8,
     },
 
     stdFullView: {
@@ -158,6 +159,71 @@ const globalStyles = StyleSheet.create({
         fontSize: 18,
         color: 'red',
         marginBottom: 10,
+    },
+
+    welcomeContainer: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        alignSelf: 'flex-start',
+        marginBottom: 40,
+        marginLeft: 10,
+        paddingHorizontal: 16,
+        paddingVertical: 10,
+        backgroundColor: 'transparent',
+        borderRadius: 8,
+        maxWidth: width * 0.8,
+    },
+
+    avatarPlaceholder: {
+        width: 50,
+        height: 50,
+        borderRadius: 25,
+        backgroundColor: '#ffffff',
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginRight: 10,
+    },
+
+    scrollViewContainer: {
+        flex: 1,
+        width: '100%',
+        maxHeight: height * 0.6,
+    },
+
+    cardContainer: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        backgroundColor: '#f0f0f0',
+        borderRadius: 10,
+        padding: 10,
+        marginVertical: 10,
+        width: '90%',
+        alignSelf: 'center',
+    },
+
+    iconCircle: {
+        width: 40,
+        height: 40,
+        borderRadius: 20,
+        backgroundColor: '#317BEF',
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginRight: 10,
+    },
+
+    cardTextContainer: {
+        flex: 1,
+    },
+
+    cardTitle: {
+        fontSize: 16,
+        fontWeight: 'bold',
+        color: '#317BEF',
+    },
+
+    cardDescription: {
+        fontSize: 14,
+        color: '#333333',
     },
 
 });
