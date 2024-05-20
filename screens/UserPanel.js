@@ -34,7 +34,7 @@ const UserPanel = () => {
             <View style={globalStyles.stdViewContent}>
                 <ScrollView style={globalStyles.scrollViewContainer}>
 
-                    {/* Primeiro card com onPress handler */}
+                    {/* Primeiro card funcional */}
                     <TouchableOpacity onPress={handleNavigateToSearch}>
                         <View style={globalStyles.cardContainer}>
                             <View style={globalStyles.iconCircle}>
@@ -50,7 +50,7 @@ const UserPanel = () => {
                         </View>
                     </TouchableOpacity>
 
-                    {/* Outros cards */}
+                    {/* Outros cards não funcionais */}
                     <View style={globalStyles.cardContainer}>
                         <View style={globalStyles.iconCircle}>
                         </View>
