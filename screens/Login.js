@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
-import { StyleSheet, View, Text, TextInput, Button, TouchableOpacity } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity } from 'react-native';
 import { auth } from '../src/Config';
 import { signInWithEmailAndPassword } from 'firebase/auth';
+import globalStyles from '../styles/base/globalStyles';
 
 const Login = ({ navigation }) => {
     const [email, setEmail] = useState('');
@@ -30,75 +31,42 @@ const Login = ({ navigation }) => {
     };
 
     return (
-        <View style={styles.container}>
-            <Text style={styles.title}>Login</Text>
-
-            {successMessage ? (
-                <Text style={styles.successMessage}>{successMessage}</Text>
-            ) : null}
-
-            {errorMessage ? (
-                <Text style={styles.errorMessage}>{errorMessage}</Text>
-            ) : null}
-
-            <TextInput
-                style={styles.input}
-                placeholder="Email"
-                keyboardType="email-address"
-                value={email}
-                onChangeText={setEmail}
-            />
-            <TextInput
-                style={styles.input}
-                placeholder="Senha"
-                secureTextEntry
-                value={password}
-                onChangeText={setPassword}
-            />
-            <Button title="Entrar" onPress={handleLogin} />
-            <TouchableOpacity onPress={() => navigation.navigate('Cadastro')}>
-                <Text style={styles.link}>Não tem uma conta? Cadastre-se</Text>
-            </TouchableOpacity>
-            <TouchableOpacity onPress={() => navigation.navigate('PasswordReset')}>
-                <Text style={styles.link}>Esqueceu a sua senha?</Text>
-            </TouchableOpacity>
+        <View style={globalStyles.stdFullView}>
+            <Text style={globalStyles.stdPageTitle}>Login</Text>
+            <View style={globalStyles.stdViewContent}>
+                {successMessage ? (
+                    <Text style={globalStyles.successMessage}>{successMessage}</Text>
+                ) : null}
+                {errorMessage ? (
+                    <Text style={globalStyles.errorMessage}>{errorMessage}</Text>
+                ) : null}
+                <Text style={globalStyles.stdInputMarker}>Email</Text>
+                <TextInput
+                    style={globalStyles.stdInput}
+                    placeholder="Email"
+                    keyboardType="email-address"
+                    value={email}
+                    onChangeText={setEmail}
+                />
+                <Text style={globalStyles.stdInputMarker}>Senha</Text>
+                <TextInput
+                    style={globalStyles.stdInput}
+                    placeholder="Senha"
+                    secureTextEntry
+                    value={password}
+                    onChangeText={setPassword}
+                />
+                <TouchableOpacity onPress={handleLogin} style={globalStyles.stdButton}>
+                    <Text style={globalStyles.stdButtonText}>Continuar</Text>
+                </TouchableOpacity>
+                <Text style={globalStyles.linkContainer}>
+                    <Text onPress={() => navigation.navigate('Cadastro')} style={globalStyles.linkBold}>Cadastro</Text>
+                    <Text> | </Text>
+                    <Text onPress={() => navigation.navigate('PasswordReset')} style={globalStyles.link}>Esqueceu a sua senha?</Text>
+                </Text>
+            </View>
         </View>
     );
 };
 
 export default Login;
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-        backgroundColor: '#fff',
-    },
-    title: {
-        fontSize: 24,
-        marginBottom: 20,
-    },
-    input: {
-        width: 200,
-        height: 40,
-        borderColor: 'gray',
-        borderWidth: 1,
-        marginBottom: 10,
-        paddingLeft: 10,
-    },
-    successMessage: {
-        fontSize: 18,
-        color: 'green',
-        marginBottom: 10,
-    },
-    errorMessage: {
-        fontSize: 18,
-        color: 'red',
-        marginBottom: 10,
-    },
-    link: {
-        color: 'blue',
-        marginTop: 15,
-    },
-});

@@ -12,7 +12,23 @@ const Stack = createStackNavigator();
 
 function MyStack() {
   return (
-    <Stack.Navigator>
+    <Stack.Navigator
+      screenOptions={{
+        headerTitle: '', // Remove o texto do título da página
+        cardStyle: {
+          backgroundColor: '#317BEF',
+          borderWidth: 0,  // Remove a borda
+        },
+        headerStyle: {
+          backgroundColor: '#317BEF',
+          borderBottomWidth: 0, // Remove a borda inferior do cabeçalho
+        },
+        headerTintColor: '#fff', // Define a cor dos ícones
+        cardShadowEnabled: false, // Desativa sombras das cartas (telas)
+        elevation: 0, // Remove elevação no Android
+        shadowOpacity: 0, // Remove sombra no iOS
+      }}
+    >
       <Stack.Screen name="Home" component={Home} />
       <Stack.Screen name="Login" component={Login} />
       <Stack.Screen name="Cadastro" component={Cadastro} />

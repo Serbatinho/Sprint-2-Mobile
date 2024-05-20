@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
-import { StyleSheet, View, Text, TextInput, Button } from 'react-native';
+import { View, Text, TextInput } from 'react-native';
 import { auth } from '../src/Config';
 import { sendPasswordResetEmail } from 'firebase/auth';
+import globalStyles from '../styles/base/globalStyles';
+import { TouchableOpacity } from 'react-native-web';
 
 const PasswordReset = () => {
     const [email, setEmail] = useState('');
@@ -13,66 +15,49 @@ const PasswordReset = () => {
             .then(() => {
                 setSuccessMessage('Email de redefinição de senha enviado com sucesso!');
                 setEmail('');
+                setTimeout(() => {
+                    setSuccessMessage('');
+                    navigation.navigate('Home'); // Navegar para a tela Home ou outra tela após o login
+                }, 3000);
             })
             .catch((error) => {
                 setErrorMessage('Erro ao enviar email de redefinição de senha: ' + error.message);
+                setTimeout(() => {
+                    setErrorMessage('');
+                }, 3000);
             });
     };
 
     return (
-        <View style={styles.container}>
-            <Text style={styles.title}>Redefinir Senha</Text>
+        <View style={globalStyles.stdFullView}>
+            <Text style={globalStyles.stdPageTitle}>Redefinir Senha</Text>
 
-            {successMessage ? (
-                <Text style={styles.successMessage}>{successMessage}</Text>
-            ) : null}
+            <View style={globalStyles.stdViewContent}>
 
-            {errorMessage ? (
-                <Text style={styles.errorMessage}>{errorMessage}</Text>
-            ) : null}
+                {successMessage ? (
+                    <Text style={globalStyles.successMessage}>{successMessage}</Text>
+                ) : null}
 
-            <TextInput
-                style={styles.input}
-                placeholder="Email"
-                keyboardType="email-address"
-                value={email}
-                onChangeText={setEmail}
-            />
+                {errorMessage ? (
+                    <Text style={globalStyles.errorMessage}>{errorMessage}</Text>
+                ) : null}
 
-            <Button title="Enviar Email de Redefinição de Senha" onPress={handleResetPassword} />
+                <Text style={globalStyles.stdInputMarker}>Email Recuperação</Text>
+                <TextInput
+                    style={globalStyles.stdInput}
+                    placeholder="Email"
+                    keyboardType="email-address"
+                    value={email}
+                    onChangeText={setEmail}
+                />
+
+                <TouchableOpacity onPress={handleResetPassword} style={globalStyles.stdButton}>
+                    <Text style={globalStyles.stdButtonText}>Enviar</Text>
+                </TouchableOpacity>
+
+            </View>
         </View>
     );
 };
 
 export default PasswordReset;
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-        backgroundColor: '#fff',
-    },
-    title: {
-        fontSize: 24,
-        marginBottom: 20,
-    },
-    input: {
-        width: 200,
-        height: 40,
-        borderColor: 'gray',
-        borderWidth: 1,
-        marginBottom: 10,
-        paddingLeft: 10,
-    },
-    successMessage: {
-        fontSize: 18,
-        color: 'green',
-        marginBottom: 10,
-    },
-    errorMessage: {
-        fontSize: 18,
-        color: 'red',
-        marginBottom: 10,
-    },
-});

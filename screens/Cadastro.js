@@ -1,44 +1,29 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { StyleSheet, View, Text, TextInput, Button, Alert } from 'react-native';
-
-import { db, auth } from '../src/Config';
+import { auth } from '../src/Config';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
-import { collection, getDocs } from "firebase/firestore";
+import globalStyles from '../styles/base/globalStyles';
+import { TouchableOpacity } from 'react-native-web';
 
 const Cadastro = ({ navigation }) => {
-    // Aquisição dos usuários
-    const [dados, setDados] = useState([]);
-
-    useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const querySnapshot = await getDocs(collection(db, "teste"));
-                let fetchedData = [];
-                querySnapshot.forEach((doc) => {
-                    fetchedData.push(doc.data());
-                });
-                setDados(fetchedData);
-            } catch (error) {
-                console.error("Erro ao buscar dados:", error);
-            }
-        };
-        fetchData();
-    }, []);
-
-    useEffect(() => {
-        console.log("Aqui");
-        console.log(dados);
-    }, [dados]);
-
     // Cadastro
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [confirmPassword, setConfirmPassword] = useState('');
     const [successMessage, setSuccessMessage] = useState('');
     const [errorMessage, setErrorMessage] = useState('');
 
     const handleSignUp = () => {
         if (password.length < 6) {
             setErrorMessage("A senha deve ter pelo menos 6 caracteres.");
+            setTimeout(() => {
+                setErrorMessage('');
+            }, 3000);
+            return;
+        }
+
+        if (password !== confirmPassword) {
+            setErrorMessage("As senhas não coincidem.");
             setTimeout(() => {
                 setErrorMessage('');
             }, 3000);
@@ -61,43 +46,54 @@ const Cadastro = ({ navigation }) => {
     };
 
     return (
-        <View style={styles.container}>
-            {dados.length > 0 ? (
-                dados.map((item, index) => (
-                    <Text key={index} style={styles.title}>
-                        {item.nome}
-                    </Text>
-                ))
-            ) : (
-                <Text style={styles.title}>Aguarde, carregando dados...</Text>
-            )}
+        <View style={globalStyles.stdFullView}>
 
-            <Text style={styles.title}>Cadastro</Text>
+            <Text style={globalStyles.stdPageTitle}>Cadastro</Text>
 
-            {successMessage ? (
-                <Text style={styles.successMessage}>{successMessage}</Text>
-            ) : null}
+            <View style={globalStyles.stdViewContent}>
 
-            {errorMessage ? (
-                <Text style={styles.errorMessage}>{errorMessage}</Text>
-            ) : null}
+                {successMessage ? (
+                    <Text style={globalStyles.successMessage}>{successMessage}</Text>
+                ) : null}
 
-            <TextInput
-                style={styles.input}
-                placeholder="Email"
-                keyboardType="email-address"
-                value={email}
-                onChangeText={setEmail}
-            />
-            <TextInput
-                style={styles.input}
-                placeholder="Senha"
-                secureTextEntry
-                value={password}
-                onChangeText={setPassword}
-            />
-            <Button title="Cadastrar" onPress={handleSignUp} />
+                {errorMessage ? (
+                    <Text style={globalStyles.errorMessage}>{errorMessage}</Text>
+                ) : null}
+
+                <Text style={globalStyles.stdInputMarker}>E-mail</Text>
+                <TextInput
+                    style={globalStyles.stdInput}
+                    placeholder="Email"
+                    keyboardType="email-address"
+                    value={email}
+                    onChangeText={setEmail}
+                />
+
+                <Text style={globalStyles.stdInputMarker}>Senha</Text>
+                <TextInput
+                    style={globalStyles.stdInput}
+                    placeholder="Senha"
+                    secureTextEntry
+                    value={password}
+                    onChangeText={setPassword}
+                />
+
+                <Text style={globalStyles.stdInputMarker}>Confirmar Senha</Text>
+                <TextInput
+                    style={globalStyles.stdInput}
+                    placeholder="Confirmar Senha"
+                    secureTextEntry
+                    value={confirmPassword}
+                    onChangeText={setConfirmPassword}
+                />
+
+                <TouchableOpacity onPress={handleSignUp} style={globalStyles.stdButton}>
+                    <Text style={globalStyles.stdButtonText}>Cadastrar</Text>
+                </TouchableOpacity>
+
+            </View>
         </View>
+
     );
 };
 

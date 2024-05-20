@@ -1,8 +1,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { StyleSheet, View, Modal, Text, TouchableOpacity } from 'react-native';
+import { View, Modal, Text, TouchableOpacity, Image } from 'react-native';
 import { useFocusEffect } from '@react-navigation/native';
 import { useAuth } from '../src/context/AuthContext';
-
 import globalStyles from '../styles/base/globalStyles';
 
 const Home = ({ navigation }) => {
@@ -17,17 +16,25 @@ const Home = ({ navigation }) => {
     );
 
     return (
-        <View style={styles.container}>
+        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: '#fff' }}>
+
+
             <Modal
                 animationType="slide"
+
                 transparent={true}
                 visible={modalVisible}
                 onRequestClose={() => {
                     setModalVisible(!modalVisible);
                 }}
+
             >
-                <View style={styles.modalView}>
-                    <Text style={styles.modalText}>
+
+
+                <View style={globalStyles.stdViewMovel} >
+                    <Image source={require('../assets/brand.png')} style={{ width: 150, height: 150, marginBottom: 20 }} />
+
+                    <Text style={{ marginBottom: 15, textAlign: 'center', fontSize: 18 }}>
                         {user ? `Bem-vindo, ${user.email}!` : 'Olá!'}
                     </Text>
                     <TouchableOpacity
@@ -41,8 +48,10 @@ const Home = ({ navigation }) => {
                 </View>
             </Modal>
 
+            <Image source={require('../assets/brand.png')} style={{ width: 350, height: 350, marginBottom: 20 }} />
+
             {user?.email && (
-                <Text style={styles.modalText}>Bem-vindo, {user.email}!</Text>
+                <Text style={{ marginBottom: 15, textAlign: 'center', fontSize: 18 }}>Bem-vindo, {user.email}!</Text>
             )}
 
             {user && (
@@ -55,7 +64,7 @@ const Home = ({ navigation }) => {
             )}
 
             {!user && (
-                <View style={styles.buttonContainer}>
+                <View style={{ marginTop: 20 }}>
                     <TouchableOpacity
                         style={globalStyles.stdButton}
                         onPress={() => navigation.navigate('Login')}
@@ -75,39 +84,3 @@ const Home = ({ navigation }) => {
 };
 
 export default Home;
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-        backgroundColor: '#fff',
-    },
-    modalView: {
-        margin: 20,
-        backgroundColor: 'white',
-        borderRadius: 20,
-        padding: 35,
-        alignItems: 'center',
-        shadowColor: '#000',
-        shadowOffset: {
-            width: 0,
-            height: 2,
-        },
-        shadowOpacity: 0.25,
-        shadowRadius: 4,
-        elevation: 5,
-    },
-    modalText: {
-        marginBottom: 15,
-        textAlign: 'center',
-        fontSize: 18,
-    },
-    welcome: {
-        fontSize: 24,
-        marginBottom: 20,
-    },
-    buttonContainer: {
-        marginTop: 20,
-    },
-});
