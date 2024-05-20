@@ -3,6 +3,7 @@ import { initializeApp } from 'firebase/app';
 import { getFirestore } from "firebase/firestore";
 import { getAuth } from "firebase/auth"
 
+//credenciais de teste, use o quanto precisar
 const firebaseConfig = {
     apiKey: "AIzaSyBAtA_Mu_Gdkks2tV3wsZ8NpSWXUr72FbA",
     authDomain: "sprint2rm551821.firebaseapp.com",
